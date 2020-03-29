@@ -1,0 +1,146 @@
+/* Main settings */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header, footer {
+    width: 100%;
+    height: 5%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    color: #333;
+    background-color: #f7f7f7;
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 135%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+::selection {background: #f58b8b; color: #fff;}
+
+/* Links */
+a {
+    color: #f48b8b;
+    text-decoration: none;
+    transition: all.6s ease;
+}
+
+a:hover {
+    color: #1a50c4;
+    text-decoration: none;
+    transition: all.6s ease;
+}
+
+a:active {color: #8ce4a6}
+
+/* Main screens */
+header {
+    border-bottom: 2px solid silver;
+    text-align: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
+    float: left;
+}
+
+.body {
+    height: 100%;
+    width: 100%;
+    margin-top: 6%;
+
+    border: 2px solid silver;
+    background: url("../img/bgsite.jpg") center no-repeat;
+    background-size: cover;
+    float: left;
+}
+
+footer {
+    border-top: 2px solid silver;
+    text-align: right;
+
+    position: absolute;
+    bottom: 0;
+}
+
+/* Bodyblock screens */
+aside, article, .rightBlock {
+    float: left;
+}
+
+aside {
+    width: 20%;
+    margin-top: 20px;
+}
+
+article {
+    width: 60%;
+}
+
+.rightBlock {
+    width: 20%;
+}
+
+/* Images */
+.CompanyLogo img {
+    width: 100%;
+    height: 20%;
+}
+
+
+.CompanyLogo {
+    width: 80%;
+    height: 80%;
+    margin: 10px 0 0 30px;
+}
+
+#NDLogo {
+   margin-top: 25px; 
+}
+
+#MTLogo {
+    margin-top: 25px;
+}
+
+
+/* About me  && Poem*/
+.changemepls {width: 20%; height: 20%; float: left;}
+
+h1 {
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+h1::after {
+    content: "";
+    display: block;
+
+    width: 40%;
+    opacity: .5;
+
+    border: 1px solid black;
+    border-radius: 100px;
+
+    position: absolute;
+    right: 30.5%;
+    top: 22%;
+}
+
+.poemBlock {
+    text-align: center;
+}
+
+.wikiLink {
+    display: block;
+    position: absolute;
+    right: 40%;
+}
