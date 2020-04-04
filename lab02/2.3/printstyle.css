@@ -1,0 +1,23 @@
+
+@media print {
+    img, nav, .slider {
+        display: none;
+    }
+
+    .body {
+        min-width: 300px;
+        min-height: 500px;
+    }
+
+    a {
+        font-weight: 300;
+        font-family: cursive;
+        color: black;
+    }
+
+    h1::after {
+        position: absolute;
+        top: 93px;
+    }
+
+}
