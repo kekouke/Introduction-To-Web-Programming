@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Killmonday Games</title>
+    <script src="js/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="icon" href="img/favicon.png">
+</head>
+<body>
+<!--Навигационное меню-->
+    <nav class="navbar navbar-expand-md navbar-light sticky-top site-header">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand"><img src="img/logo.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">ABOUT</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">GAMES</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown dropdown-item"><a href="#" class="nav-link dropdown-toggle">Games</a>
+                                    <ul class="dropdown-menu pl-100">
+                                        <li class="dropdown-item">FranBow</li>
+                                        <li class="dropdown-item">Little Missfortune</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-item"><a href="#" class="nav-link">Free Games</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="shop.html" class="nav-link">SHOP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+<!--Слайдер картинок-->
+    <div class="carousel slide banner" data-ride="caraousel" id="slides">
+        <ul class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1""></li>
+            <li data-target="#slides" data-slide-to="2"></li>
+            <li data-target="#slides" data-slide-to="3"></li>
+        </ul>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/slider1.jpg">
+            </div>
+            <div class="carousel-item">
+                <img src="img/slider2.png">
+            </div>
+            <div class="carousel-item">
+                <img src="img/slider3.jpg">
+            </div>
+            <div class="carousel-item">
+                <img src="img/slider4.jpg">
+            </div>
+        </div>
+    </div>
+<!--Основной блок сайта-->
+    <div class="container-fluid">
+        <div class="row jumbotron">
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+                <p class="lead">”Killmonday Games dream is to make games with personal stories attached to them,
+                    creating immersive worlds filled with mystery, feelings and fun.
+                    The biggest focus lies in storytelling and making a personal connection to the players and the game.”</p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                <a href="about.html"><button class="btn btn-success btn-lg" type="button">ABOUS US</button></a>
+            </div>
+        </div>
+    </div>
+
+<!--Блок с новостями сайта-->
+<div class="container-fluid">
+    <div class="row text-center">
+        <article class="col-xl-6 row m-0 p-0 d-flex">
+            <div class="col-md-6" style="background-image: url(img/main1.jpg); background-size: cover; width:100%; height: 500px;">
+            </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>Little Missfortune Mobile - OUT NOW!</h3>
+                    <p>Let’s make the screens sparkle, because today Little Lady Misfortune is entering the mobiles!
+                    ✨ We are so excited!!! Little Misfortune is an interactive story, focused on exploration and
+                    characters, both sweet and dark, where your choices have consequences.</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE
+                        <span class="badge badge-light ml-1">New</span></a>
+                </div>
+            </div>
+        </article>
+        <article class="col-xl-6 row m-0 p-0 d-flex flex-md-row-reverse flex-xl-row"> 
+            <div class="col-md-6" style="background-image: url(img/main2.jpg); background-size: cover; width:100%; height: 500px;">
+            </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>Making a game in 2 weeks: The Killmonday Winter Challenge!</h3>
+                    <p>As game developers we are always hungry to learn, grow and evolve. No new project never looks the
+                        same as the last. We are constantly striving to push ourselves further – exploring what’s next, breaking 
+                        new grounds, never quite comfortable in what we do but always learning something new.</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE</a>
+                </div>
+            </div>
+        </article>
+        <article class="col-xl-6 row m-0 p-0 d-flex flex-xl-row-reverse">
+            <div class="col-md-6" style="background-image: url(img/main3.jpg); background-size: cover; width:100%; height: 500px;">
+            </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>Say hi to our Merch NEWCOMERS!</h3>
+                    <p>Hello sweet darling friends! 💗 Hope you all have an amazing time wherever you are in the world. If you are
+                        following us on our social medias (which we assume you are, otherwise, take a look at the top right corner 😉) 
+                        you may have noticed</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE</a>
+                </div>
+            </div>
+        </article>
+        <article class="col-xl-6 row m-0 p-0 d-flex flex-md-row-reverse">
+            <div class="col-md-6" style="background-image: url(img/main4.jpg); background-size: cover; width:100%; height: 500px;">
+            </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>Release Date: September 18</h3>
+                    <p>Hello sweet friends! It’s Natalia! ✌  Have you heard the news? 😀 Little Misfortune is coming out on September 
+                        18, 2019!! ✨❤🎉 We hope you are equally excited as we are for the PC release!</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE</a>
+                </div>
+            </div>
+        </article>
+        <article class="col-xl-6 row m-0 p-0 d-flex">
+            <div class="col-md-6" style="background-image: url(img/main5.jpg); background-size: cover; width:100%; height: 500px;">
+             </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>Little Missfortune Official Trailer</h3>
+                    <p>Hello friends!♥ Last Sunday we released the Official Trailer for Little Misfortune, which has been received with 
+                        a lot of love.  We are endlessly thankful for that! We would also like to thank you who have taken the time to 
+                        share the trailer and spread the news!</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE</a>
+                </div>
+            </div>
+        </article>
+        <article class="col-xl-6 row m-0 p-0 d-flex flex-md-row-reverse flex-xl-row">
+            <div class="col-md-6" style="background-image: url(img/main6.jpg); background-size: cover; width:100%; height: 500px;">
+            </div>
+            <div class="col-md-6 post">
+                <div class="container preview">
+                    <h3>HALOWEEN SALES!</h3>
+                    <p>It’s that time of the year again. HALLOWEEN! And behind all the blood and scary masks and costumes,  the biggest 
+                        thing happening around this time is of course game sales! Lots of them. And what suits better to play than a creepy 
+                        psychological horror adventure game called Fran Bow?</p>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Read More">READ MORE</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+<!--Футер-->
+    <div class="container-fluid footerme">
+        <div class="container-fluid pt-5">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Main-Page</li>
+            </ol>
+            <div class="container media-footer">
+                <p>Media:
+                    <i class="fab fa-telegram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-steam"></i>
+                    <i class="fab fa-facebook"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

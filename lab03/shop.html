@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Killmonday Games</title>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="icon" href="img/favicon.png">
+
+</head>
+
+<body>
+<!--Modal-->
+    <div class="modal fade" id="shopModal" tabindex="-1" role="dialog" aria-labelledby="shopModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Go to checkout?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Attention: The goods are sold for real money.
+                 By clicking "GO" you confirm that you are 14 years old and you agree
+                  to purchase the selected product!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary">Go</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <header class="mb-3">
+        <div class="container-fluid">
+            <div class="image-logo-container">
+                <img src="img/shoplogo.jpg" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name of product</th>
+                <th scope="col">Click to Buy</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Yikes Forever Beanie</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>27,49 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Keeper of the Key - Fran Bow Mug</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>28,52 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>The Lie of Morgo - 1st Edition</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>23,86 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Fran Bow Cut - Out Stickers</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>6,22 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>Palontras Pin - Purple Collection</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>8,82 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
+                <td>Itward Pin - Purple Collection</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>8,82 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">7</th>
+                <td>Fran Bow Pin - Purple Collection</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>8,82 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">8</th>
+                <td>Yikes Forever T-shirt - WOMAN</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>41,39 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">9</th>
+                <td>5 Digital Desktop Wallpapers - Little Missfortune</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>5,19 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">10</th>
+                <td>Digital Little Missfortune Artbook</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>6,22 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">11</th>
+                <td>Yikes Forever T-shirt - MAN</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>41,39 US$</td>
+              </tr>
+              <tr>
+                <th scope="row">12</th>
+                <td>Little Missfortune Fine Art Print, 2nd Edition</td>
+                <td><a class="btn btn-success" data-toggle="modal" data-target="#shopModal" href="#">Buy</a></td>
+                <td>23,86 US$</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="container-fluid footerme">
+        <div class="container-fluid pt-5">
+            <ol class="breadcrumb">
+                <li class ="breadcrumb-item"> <a href="index.html">Main-Page</a></li>
+                <li class="breadcrumb-item active">Shop</li>
+            </ol>
+            <div class="container media-footer">
+                <p>Media:
+                    <i class="fab fa-telegram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-steam"></i>
+                    <i class="fab fa-facebook"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
