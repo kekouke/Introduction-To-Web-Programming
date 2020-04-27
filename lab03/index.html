@@ -19,8 +19,37 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="icon" href="img/favicon.png">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
+<!--MathML Modal-->
+    <div class="modal fade" id="easter-egg" tabindex="-1" role="dialog" aria-labelledby="easter-egg-Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Math Easter Egg</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    $${-b \pm \sqrt{b^2-4ac} \over 2a}$$
+                </div>
+                <div>
+                    $$\sqrt{ \frac{1}{N} \sum_{i=1}^N (x_i -\mu)^2}$$
+                </div>
+                <div>
+                    $$\lim_{x\to 0}{x^2}$$
+                </div>
+                <div>
+                    $$\int 2^{x^x} dx $$
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
 <!--Навигационное меню-->
     <nav class="navbar navbar-expand-md navbar-light sticky-top site-header">
             <div class="container-fluid">
@@ -56,7 +85,7 @@
             </div>
     </nav>
 <!--Слайдер картинок-->
-    <div class="carousel slide banner" data-ride="caraousel" id="slides">
+    <div class="carousel slide banner" data-ride="carousel" id="slides">
         <ul class="carousel-indicators">
             <li data-target="#slides" data-slide-to="0" class="active"></li>
             <li data-target="#slides" data-slide-to="1""></li>
@@ -190,7 +219,18 @@
                 </p>
             </div>
         </div>
+        <div class="container">
+            <center>
+                <h6>We Are Here</h6>
+                <svg width="150px" height="92">
+                    <rect width="150" height="90" fill="rgb(0, 0 ,255)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                    <line x1="50" y1="0" x2="50" y2="90" stroke-width="20" stroke="rgb(255, 255, 51)"/> 
+                    <line x1="0" y1="45" x2="150" y2="45" stroke-width="20" stroke="rgb(255, 255, 51)"/> 
+                </svg>
+            </center>
+        </div>
     </div>
+    <a style="color: lightgrey; display:flex; justify-content: center; background: lightgrey" data-toggle="modal" data-target="#easter-egg" href="#">easter-egg</a>
     <script src="js/script.js"></script>
 </body>
 </html>
