@@ -2,11 +2,112 @@
 
 <html>
     <head>
-        <title>sdda</title>
+        <title>Task-4</title>
         <meta charset="UTF-8">
+        <script src="script.js"></script>
     </head>
     <body>
-        <h1 align="center">Площать квадрата</h1>
-        <script src="script.js"></script>
+        <!--Task-4.1-->
+        <div align="center">
+            <div>
+                <h3>Вычисление площади фигуры. Эллипс:</h3>
+                <div style="margin-top: 10px;">
+                    <span>Длина большой полуоси (a):  </span>
+                    <input type="number" id="semiaxis-a"><br>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span>Длина меньшей полуоси (b): </span>
+                    <input type="number" id="semiaxis-b">
+                </div>
+                <div style="margin-top: 10px;">
+                    <button type="button" onclick=func1() id="func1">Вычислить</button>
+                </div>
+           </div>
+           <div style="margin-top: 10px;">
+                <span>Площадь:  </span>
+                <input type="number" id="result1">
+          </div>
+        </div>
+
+
+        <!--Task-4.2-->
+        <div align="center">
+            <h3>Дана последовательность  1 , -3Х , 9Х2 , -27X3,… Найти сумму элементов,
+                превышающих по абсолютной величине 0,006. <i>Примечание: Х < 1.</i> </h3>
+            <div style="margin-top: 10px;">
+                <span>Введите X:</span>
+                <input type="number" id="input-x">
+                <button type="button" onclick=func2() id="func2">Вычислить</button>
+            </div>
+            <div style="margin-top: 10px;">
+                <span>Результат:</span>
+                <input type="number" id="result2">
+            </div>
+        </div>
+
+        <!--Task-4.3-->
+        <div align="center">
+            <h3>Квадратная матрица М состоит из 6 строк, 6 столбцов. Вы­честь из каждого
+                ее элемента сумму элементов, расположенных на главной диагонали.</h3>
+            <div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="1230" class="matrix-val" style="background: green;">
+                    <input type="number" value="-30" class="matrix-val">
+                    <input type="number" value="5" class="matrix-val">
+                    <input type="number" value="15" class="matrix-val">
+                    <input type="number" value="-3" class="matrix-val">
+                    <input type="number" value="8" class="matrix-val">
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="10" class="matrix-val">
+                    <input type="number" value="-3" class="matrix-val" style="background: green;">
+                    <input type="number" value="5" class="matrix-val">
+                    <input type="number" value="15" class="matrix-val">
+                    <input type="number" value="-3" class="matrix-val">
+                    <input type="number" value="8" class="matrix-val">
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="-10" class="matrix-val">
+                    <input type="number" value="12" class="matrix-val">
+                    <input type="number" value="5" class="matrix-val" style="background: green;">
+                    <input type="number" value="15" class="matrix-val">
+                    <input type="number" value="45" class="matrix-val">
+                    <input type="number" value="8" class="matrix-val">
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="10" class="matrix-val">
+                    <input type="number" value="-3" class="matrix-val">
+                    <input type="number" value="45" class="matrix-val">
+                    <input type="number" value="-76" class="matrix-val" style="background: green;">
+                    <input type="number" value="-2" class="matrix-val">
+                    <input type="number" value="5" class="matrix-val">
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="23" class="matrix-val">
+                    <input type="number" value="-9" class="matrix-val">
+                    <input type="number" value="-5" class="matrix-val">
+                    <input type="number" value="4" class="matrix-val">
+                    <input type="number" value="1" class="matrix-val" style="background: green;">
+                    <input type="number" value="0" class="matrix-val">
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="number" value="-12" class="matrix-val">
+                    <input type="number" value="-3" class="matrix-val">
+                    <input type="number" value="3" class="matrix-val">
+                    <input type="number" value="14" class="matrix-val">
+                    <input type="number" value="23" class="matrix-val">
+                    <input type="number" value="-9" class="matrix-val" style="background: green;">
+                </div>
+                <div style="margin-top: 10px;">
+                    <button type="button" onclick=func3() id="func3">Выполнить</button>
+                </div>
+            </div>
+        </div>
+        <div align="center">
+            <h3>Даны числа a1..a(n*n), получить квадратную матрицу порядка n, элементами
+                которой являются числа a1..a(n*n), расположенные в ней по схеме:</h3>
+            <span>Вывод в консоль: </span>
+            <button type="button" onclick=func4(4) id="func4">Выполнить</button>
+        </div>
     </body>
 </html>
