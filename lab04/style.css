@@ -1,0 +1,18 @@
+body {
+    background: url('https://i.ytimg.com/vi/ADlALHJVXv8/maxresdefault.jpg') no-repeat;
+    background-size: 100%;
+}
+
+#table {
+    margin-top: 10px;
+}
+table, td, th {
+    border: 2px solid silver;
+    color: #fafafa;
+    background: #000;
+}
+
+td, th {
+    min-width: 50px;
+    text-align: center;
+}

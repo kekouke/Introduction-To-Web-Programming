@@ -1,9 +1,11 @@
+'use-strict';
+
 function ellipseSquare(a, b) {
     return Math.PI * a * b;
 }
 
 function getRandomInt() {
-    return Math.floor(Math.random() * (100 - 0) + 0);
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 function getArray(n) {
@@ -15,16 +17,7 @@ function getArray(n) {
 }
 
 function getResultArray(A) {
-    A.sort(function compareFunction(a, b) {
-        if (a - b < 0) {
-            return -1;
-        }
-        else if (a - b > 0) {
-            return 1;
-        }
-        else { return 0;}
-    }); 
-    
+    A.sort((a, b) => b - a);   
     return A;
 }
 
@@ -41,17 +34,22 @@ function func1() {
 }
 
 function func2() {
-    var x = document.getElementById("input-x").value;
-    var sum = 0;
+    var x = document.getElementById('input-x').value;
+
     if (x >= 1) {
         alert("Неверное значение");
+        return 2;
     }
-    else {
-        for (let i = 0; Math.abs(Math.pow(-1, i) * Math.pow(3, i) * Math.pow(x, i)) > 0.006; i++) {
-            sum += Math.pow(-1, i) * Math.pow(3, i) * Math.pow(x, i);
-        }
-        document.getElementById("result2").value = sum;
+
+    var sum = 0;
+    var tmp = 1;
+
+    for (let i = 1; Math.abs(tmp) > 0.006; i++) {
+        sum += tmp;
+        tmp = Math.pow(-1, i) * Math.pow(3, i) * Math.pow(x, i);
     }
+    document.getElementById("result2").value = sum.toFixed(4);
+    console.log(sum);
 }
 
 function func3() {
@@ -67,8 +65,25 @@ function func3() {
     }
 }
 
-function func4(rang) {
-    var array = getResultArray(getArray(Math.pow(rang, 2))).reverse();
+function func4() {
+    var rang = Number(document.getElementById("rang").value);
+    var min = Number(document.getElementById("min").value);
+    var max = Number(document.getElementById("max").value);
+
+    if (rang <= 0 || rang > 16) {
+        alert("Ошибка!");
+        return 37;
+    }
+
+    if (min > max) {
+        alert("Ошибка!");
+        return 1;
+    }
+
+    var array = getResultArray(getArray(Math.pow(rang, 2), min, max));
+
+
+
     var matrix = [];
 
     for (let i = 0; i < rang; i++) {
@@ -87,8 +102,19 @@ function func4(rang) {
             for (let i = rang - 1; i >=0; i--) {
                 matrix[i][column] = array.shift();
             }
-        }
-        
+        }     
     }
-      console.log(matrix);
+
+    var table = '<table cellpadding="5">';
+
+    for (i = 0; i < rang; i++){
+        table = table + '<tr>';
+            for (j = 0; j < rang; j++){
+                table = table + '<td>' + " " + matrix[i][j] + " " + '</td>'; 
+          }
+          table = table + '</tr>';
+    }
+    table == table + '</table>';
+    
+    document.getElementById('table').innerHTML = table;
 }

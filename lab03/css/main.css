@@ -47,6 +47,8 @@ body {
     background-color: lightgrey;
 }
 
+
+/* News Block */
 article:hover .post {
     background:lightgrey;
 }
@@ -62,6 +64,7 @@ article {
     border-top: 1px solid silver;
 }
 
+/* Other */
 .site-content {
     margin: 50px auto 50px;
     max-width: 900px;
@@ -119,17 +122,15 @@ article {
     width: 256px;
 }
 
+/* 2x Menu */
 .dropdown .dropdown {
     padding: 0;
-}
-.dropdown li a {
-    padding-left: 10px;
-    padding-right: 0;
 }
 .dropdown .dropdown:hover .dropdown-menu {
     display:block;
     left: 100%;
-    top: calc(0% - 5px);
+    top: calc(0% - 11px);
+    border-radius: 0;
 }
 
 .navbar .container-fluid .nav-link {
@@ -138,4 +139,8 @@ article {
 
 .dropdown-menu {
     background: lightgray;
+    border-radius: 0;
+}
+.dropdown-menu a {
+    color: black !important;
 }

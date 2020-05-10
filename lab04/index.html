@@ -4,6 +4,7 @@
     <head>
         <title>Task-4</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
     </head>
     <body>
@@ -36,12 +37,12 @@
                 превышающих по абсолютной величине 0,006. <i>Примечание: Х < 1.</i> </h3>
             <div style="margin-top: 10px;">
                 <span>Введите X:</span>
-                <input type="number" id="input-x">
+                <input type="number" value="0" id="input-x">
                 <button type="button" onclick=func2() id="func2">Вычислить</button>
             </div>
             <div style="margin-top: 10px;">
                 <span>Результат:</span>
-                <input type="number" id="result2">
+                <input type="text" id="result2">
             </div>
         </div>
 
@@ -106,8 +107,21 @@
         <div align="center">
             <h3>Даны числа a1..a(n*n), получить квадратную матрицу порядка n, элементами
                 которой являются числа a1..a(n*n), расположенные в ней по схеме:</h3>
-            <span>Вывод в консоль: </span>
-            <button type="button" onclick=func4(4) id="func4">Выполнить</button>
+            <div style="margin-top: 10px;">
+                <span>n:</span>
+                <input type="number" value="4" id="rang">
+                <span>Min:</span>
+                <input type="number" value="0" id="min">
+                <span>Max:</span>
+                <input type="number" value="1000" id="max">
+            </div>
+            <div style="margin-top: 10px;">
+                <span>Вывод: </span>
+                <button type="button" onclick=func4() id="func4">Выполнить</button>
+            </div>
+
+            <div id="table" align="center"></div>
+
         </div>
     </body>
 </html>
