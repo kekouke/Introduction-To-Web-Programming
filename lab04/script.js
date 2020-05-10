@@ -4,14 +4,14 @@ function ellipseSquare(a, b) {
     return Math.PI * a * b;
 }
 
-function getRandomInt() {
+function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function getArray(n) {
+function getArray(n, min, max) {
     var A = [];
     for (let i = 0; i < n; i++) {
-        A.push(getRandomInt());
+        A.push(getRandomInt(min, max));
     }
     return A;
 }
@@ -114,7 +114,7 @@ function func4() {
           }
           table = table + '</tr>';
     }
-    table == table + '</table>';
+    table = table + '</table>';
     
     document.getElementById('table').innerHTML = table;
 }
