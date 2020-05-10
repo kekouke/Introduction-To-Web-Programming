@@ -5,15 +5,27 @@ function ellipseSquare(a, b) {
 }
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+
+
+    return max >= min ? Math.floor(Math.random() * (max - min) + min) : 1;
 }
 
-function getArray(n, min, max) {
-    var A = [];
-    for (let i = 0; i < n; i++) {
-        A.push(getRandomInt(min, max));
+function getArray(n) {
+    var min = Number(document.getElementById("min").value);
+    var max = Number(document.getElementById("max").value);
+
+    if (max >= min) {
+        var A = [];
+        for (let i = 0; i < n; i++) {
+            A.push(getRandomInt(min, max));
+        }
+        return A;
+    } else {
+        alert("Ошибка!");
+        return 1;
     }
-    return A;
+
+
 }
 
 function getResultArray(A) {
@@ -67,22 +79,13 @@ function func3() {
 
 function func4() {
     var rang = Number(document.getElementById("rang").value);
-    var min = Number(document.getElementById("min").value);
-    var max = Number(document.getElementById("max").value);
 
     if (rang <= 0 || rang > 16) {
         alert("Ошибка!");
         return 37;
     }
 
-    if (min > max) {
-        alert("Ошибка!");
-        return 1;
-    }
-
-    var array = getResultArray(getArray(Math.pow(rang, 2), min, max));
-
-
+    var array = getResultArray(getArray(Math.pow(rang, 2)));
 
     var matrix = [];
 
