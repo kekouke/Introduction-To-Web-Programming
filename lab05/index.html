@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lab05 - DOM</title>
+</head>
+<body>
+    <script>
+
+        let m = [
+            {
+                text: 'Animals',
+                childs: [
+                    {
+                        text: 'Млекопитающие',
+                        childs: [
+                            {
+                                text: 'Cows'
+                            },
+                            {
+                                text: 'Osels'
+                            },
+                            {
+                                text: 'Dogs'
+                            },
+                            {
+                                text: 'Tigers'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Другие',
+                        childs: [
+                            {
+                                text: 'Snakes'
+                            },
+                            {
+                                text: 'Birds'
+                            },
+                            {
+                                text: 'Lizards'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                text: 'Fish',
+                childs: [
+                    {
+                        text: 'Аквариумный',
+                        childs: [
+                            {
+                                text: 'Гуппи'
+                            },
+                            {
+                                text: 'Скалярии'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Морские',
+                        childs: [
+                            {
+                                text: 'Морская форель'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+        function createListItem(item, ul) {
+            let li = ul.appendChild(document.createElement('li'));
+            li.appendChild(document.createTextNode(item.text));
+
+            if (item.childs) {
+                let newUL = li.appendChild(document.createElement('ul'));
+               
+                for (newItem of item.childs) {
+                    createListItem(newItem, newUL);
+                }
+            }
+        }
+
+        function GetInfo(element) {
+
+        if (!element) return;
+
+        console.dir(element);
+
+        for (node of element.children) {
+            GetInfo(node);
+        }
+    }
+
+        let ul = document.body.appendChild(document.createElement('ul'));
+
+        for (item of m) {
+            createListItem(item, ul);
+        }
+
+        GetInfo(document.documentElement);
+
+    </script>
+</body>
+</html>

@@ -5,8 +5,6 @@ function ellipseSquare(a, b) {
 }
 
 function getRandomInt(min, max) {
-
-
     return max >= min ? Math.floor(Math.random() * (max - min) + min) : 1;
 }
 
