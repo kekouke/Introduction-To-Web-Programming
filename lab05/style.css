@@ -1,0 +1,12 @@
+body {
+    background: url(https://tesall.ru/uploads/imgs/pre_1538483875__ori-and-the-blind-forest-1.jpg) no-repeat center top fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #fafafa;
+    font-weight: bold;
+    font-size: large;
+    padding-left: 600px;
+    padding-top: 55px;
+}
