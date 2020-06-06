@@ -113,14 +113,14 @@
 
         function GetInfo(element) {
 
-        if (!element) return;
+            if (!element) return;
 
-        console.dir(element);
+            console.dir(element);
 
-        for (node of element.children) {
-            GetInfo(node);
+            for (node of element.children) {
+                GetInfo(node);
+            }
         }
-    }
 
         let ul = document.body.appendChild(document.createElement('ul'));
 

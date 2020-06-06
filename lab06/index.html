@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Canvas & Mootools</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<style type="text/css">
+		canvas { border: 1px solid blue; }
+	</style>
+</head>
+<body onload="init()">
+	<canvas id="canvas" width="800" height="600" onclick="mouseClickHandler(event);">
+	</canvas>
+	<form>
+		<input type = "button" value = "Движение" onclick="move()">
+		<input type = "button" value = "Стоп" onclick="clearInterval(idTimer);">
+		<input type= "range" min="10" max="30" value="10" id="speedValue">
+		<input type = "button" onclick="setSpeed()" value="Speed"></input>
+	</form>
+	<div>
+		<input type="button" value="Вверх" onclick="changeDirection(0)">
+		<input type="button" value="Вниз" onclick="changeDirection(1)">
+		<input type="button" value="Влево" onclick="changeDirection(2)">
+		<input type="button" value="Вправо" onclick="changeDirection(3)">
+		<input type="button" value="Хаос" onclick="changeDirection(4)">
+	</div>
+</body>
+</html>
