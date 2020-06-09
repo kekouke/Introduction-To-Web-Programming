@@ -69,7 +69,7 @@ var canvas,
     idTimer,
     minSize = 5,
     maxSize = 50,
-    maxFigureSize,
+    maxFigureSize = 50,
     speed = 4,
     ticks = 0,
     figureDirection = 4;
@@ -116,12 +116,19 @@ function init(){
 
         //рисуем фон
         Draw(ctx,'#202020', '#aaa', canvas.width, canvas.height);
-        setMaxFigureSize();
+
+        document.getElementById('speedValue').addEventListener('change', function(e) {
+            speed = +document.getElementById('speedValue').value;
+        });
+
+        document.getElementById('sizeValue').addEventListener('change', function(e) {
+            maxFigureSize = document.getElementById('sizeValue').value;
+        });
 
         //создаем 10 шариков, заноси их в массив и выводим на canvas
         figures = [];
 
-        for (var i = 0; i<= 500; i++){
+        for (var i = 0; i<= 10; i++){
             var item = new typeOfFigure[getRandomFigure()](10+Math.random()*(canvas.width-30),
             10+Math.random()*(canvas.height-30));
             item.draw(ctx);
@@ -157,15 +164,6 @@ function getRandomFigure() {
 function move() {
     clearInterval(idTimer);
     idTimer = setInterval(moveShapes, 50);
-}
-
-
-function setSpeed() {
-    speed = +document.getElementById('speedValue').value;
-}
-
-function setMaxFigureSize() {
-    maxFigureSize = document.getElementById('sizeValue').value;
 }
 
 function changeDirection(mode) {
