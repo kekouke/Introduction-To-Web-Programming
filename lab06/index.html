@@ -8,12 +8,11 @@
 	</style>
 </head>
 <body onload="init()">
-	<canvas id="canvas" width="800" height="600" onclick="mouseClickHandler(event);">
-	</canvas>
+	<canvas id="canvas" width="1478" height="600" onclick="mouseClickHandler(event);"></canvas>
 	<form>
-		<input type = "button" value = "Движение" onclick="move()">
+		<input type = "button" value = "Движение" onclick="changeDirection()">
 		<input type = "button" value = "Стоп" onclick="clearInterval(idTimer);">
-		<input type= "range" min="10" max="30" value="10" id="speedValue">
+		<input type= "range" min="4" max="30" value="4" id="speedValue">
 		<input type = "button" onclick="setSpeed()" value="Speed"></input>
 	</form>
 	<div>
@@ -22,6 +21,10 @@
 		<input type="button" value="Влево" onclick="changeDirection(2)">
 		<input type="button" value="Вправо" onclick="changeDirection(3)">
 		<input type="button" value="Хаос" onclick="changeDirection(4)">
+		<div>
+			<input type= "range" min="5" max="100" value="50" id="sizeValue" onchange="setMaxFigureSize()">
+			<span>Максимальный размер фигур</span>
+		</div>
 	</div>
 </body>
 </html>
