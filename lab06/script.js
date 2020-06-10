@@ -48,6 +48,17 @@ class Rectangle extends Figure {
         ctx.closePath();
         ctx.fill();
     }
+
+    getPoints() {
+        let [x, y, size] = [this.posX, this.posY, this.size];
+
+        return [
+            [x - size / 2, y - size / 2],
+            [x + size / 2, y - size / 2],
+            [x + size / 2, y + size / 2],
+            [x - size / 2, y + size / 2]
+        ];
+    }
 }
 
 class Triangle extends Figure {
@@ -60,6 +71,16 @@ class Triangle extends Figure {
         ctx.lineTo(x, y - size);
         ctx.closePath();
         ctx.fill();
+    }
+
+    getPoints() {
+        let [x, y, size] = [this.posX, this.posY, this.size];
+
+        return [
+            [x - size, y + size],
+            [x + size, y + size],
+            [x, y - size]
+        ];
     }
 }
 
@@ -108,7 +129,7 @@ var directions = [
 let typeOfFigure = [Rectangle, Ball, Triangle];
 
 // инициализация работы
-function init(){
+function init() {
 
     canvas = document.getElementById('canvas');
     if (canvas.getContext){
@@ -128,7 +149,7 @@ function init(){
         //создаем 10 шариков, заноси их в массив и выводим на canvas
         figures = [];
 
-        for (var i = 0; i<= 10; i++){
+        for (var i = 0; i <= 50; i++){
             var item = new typeOfFigure[getRandomFigure()](10+Math.random()*(canvas.width-30),
             10+Math.random()*(canvas.height-30));
             item.draw(ctx);
@@ -149,11 +170,11 @@ function mouseClickHandler(event){
 function Draw(ctx, col1, col2, w, h){
     // закрашиваем канвас градиентным фоном
     ctx.save();
-    var g = ctx.createLinearGradient(0,0,0,h);
-    g.addColorStop(1,col1);
-    g.addColorStop(0,col2);
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(1, col1);
+    g.addColorStop(0, col2);
     ctx.fillStyle = g;
-    ctx.fillRect(0,0,w,h);
+    ctx.fillRect(0, 0, w, h);
     ctx.restore();
 }
 
@@ -172,13 +193,13 @@ function changeDirection(mode) {
 }
 
 
-function moveShapes(){
+function moveShapes() {
     // реализация движения шариков, находящихся в массиве figures
     Draw(ctx, '#202020', '#aaa', canvas.width, canvas.height);
 
-    for (var i = 0; i < figures.length;i){
+    for (var i = 0; i < figures.length; i){
         
-        figures[i].size++;
+        figures[i].size += 0.25;
 
         if (figures[i].size > maxFigureSize) {
             figures.splice(i, 1);
@@ -193,8 +214,87 @@ function moveShapes(){
             figures.splice(i,1);
         }
         else {
+            checkCollisions(figures[i]);
             i++;
+        }
+    }
+}
+
+function checkCollisions(figure) {
+    for (let i = 0; i < figures.length; i++) {
+
+        if (figures[i] == figure) {
+            continue;
+        }
+
+        let enemy = figures[i];
+
+        // Detect the collision between Ball and Ball
+        if (enemy instanceof Ball && figure instanceof Ball) {             
+            let dx = figure.posX - enemy.posX;
+            let dy = figure.posY - enemy.posY;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < figure.size + enemy.size) {
+                figures.splice(figures.indexOf(figure, 0), 1);
+                figures.splice(figures.indexOf(enemy, 0), 1);
+            }
+            
+        }
+        // Detect the collision Rectangles or Triangles
+        else if (!(enemy instanceof Ball || figure instanceof Ball)) {
+            let [figurePoints, enemyPoints] = [figure.getPoints(), enemy.getPoints()];
+
+            for (let point of enemyPoints) {
+                if (pointInPoly(figurePoints, point[0], point[1])) {
+                    figures.splice(figures.indexOf(figure, 0), 1);
+                    figures.splice(figures.indexOf(enemy, 0), 1);
+                }
+            }
+        // Detect the collision between Ball and an another shape
+        } else {
+            var ball,
+                shape;
+
+            if (enemy instanceof Ball) {
+                ball = enemy;
+                shape = figure;
+            } else {
+                ball = figure;
+                shape = enemy;
+            }
+            var pointsOfShapes = shape.getPoints();
+
+            let distance = 9999999;
+            for (let i = 0; i < pointsOfShapes.length; i++) {
+                let dx = pointsOfShapes[i][0] - ball.posX;
+                let dy = pointsOfShapes[i][1] - ball.posY;
+                let tmpDistance = Math.sqrt(dx * dx + dy * dy);
+                distance = tmpDistance < distance ? tmpDistance : distance;
+            }
+            if (ball.size >= distance || pointInPoly(pointsOfShapes, ball.posX, ball.posY)) {
+                figures.splice(figures.indexOf(shape, 0), 1);
+                figures.splice(figures.indexOf(ball, 0), 1);
+            }
         }
 
     }
+}
+
+function pointInPoly(figurePoints, pointX, pointY)
+{
+    let destroy = 0;
+
+	for (let i = 0, j = figurePoints.length - 1; i < figurePoints.length; j = i++)
+	{
+        if (((figurePoints[i][1] > pointY) != (figurePoints[j][1] > pointY)) && 
+        (pointX < (figurePoints[j][0] - figurePoints[i][0]) * (pointY - figurePoints[i][1]) / 
+        (figurePoints[j][1] - figurePoints[i][1]) + figurePoints[i][0]))
+		{
+            destroy = !destroy;
+		}
+ 
+	}
+ 
+	return destroy;
 }
