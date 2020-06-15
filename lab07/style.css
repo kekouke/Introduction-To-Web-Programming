@@ -1,1 +1,16 @@
 canvas { border: 1px solid blue; }
+
+.btn_play {
+    position: absolute;
+    bottom: 50px;
+    left: 44%;
+    width: 200px;
+    height: 100px;
+}
+
+#btn_play {
+    height: 100%;
+    width: 100%;
+    font-weight: bold;
+    font-size: large;
+}
