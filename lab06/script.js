@@ -95,6 +95,8 @@ var canvas,
     ticks = 0,
     figureDirection = 4;
 
+const DISNANCE = 9999999;
+
 var directions = [
     // top
     (x, y) => {
@@ -122,7 +124,7 @@ var directions = [
     },
     // chaos
     (x, y) => {
-        return directions[Math.floor(Math.random() * 3)](x, y);
+        return directions[Math.floor(Math.random() * 4)](x, y);
     }
 ];
 
@@ -149,7 +151,7 @@ function init() {
         //создаем 10 шариков, заноси их в массив и выводим на canvas
         figures = [];
 
-        for (var i = 0; i <= 50; i++){
+        for (var i = 0; i <= 10; i++){
             var item = new typeOfFigure[getRandomFigure()](10+Math.random()*(canvas.width-30),
             10+Math.random()*(canvas.height-30));
             item.draw(ctx);
@@ -214,8 +216,9 @@ function moveShapes() {
             figures.splice(i,1);
         }
         else {
-            checkCollisions(figures[i]);
-            i++;
+            if (!checkCollisions(figures[i])) {
+                i++;
+            }
         }
     }
 }
@@ -238,6 +241,7 @@ function checkCollisions(figure) {
             if (distance < figure.size + enemy.size) {
                 figures.splice(figures.indexOf(figure, 0), 1);
                 figures.splice(figures.indexOf(enemy, 0), 1);
+                return true;
             }
             
         }
@@ -249,6 +253,7 @@ function checkCollisions(figure) {
                 if (pointInPoly(figurePoints, point[0], point[1])) {
                     figures.splice(figures.indexOf(figure, 0), 1);
                     figures.splice(figures.indexOf(enemy, 0), 1);
+                    return true;
                 }
             }
         // Detect the collision between Ball and an another shape
@@ -263,9 +268,10 @@ function checkCollisions(figure) {
                 ball = figure;
                 shape = enemy;
             }
+            
             var pointsOfShapes = shape.getPoints();
 
-            let distance = 9999999;
+            let distance = DISNANCE;
             for (let i = 0; i < pointsOfShapes.length; i++) {
                 let dx = pointsOfShapes[i][0] - ball.posX;
                 let dy = pointsOfShapes[i][1] - ball.posY;
@@ -275,10 +281,11 @@ function checkCollisions(figure) {
             if (ball.size >= distance || pointInPoly(pointsOfShapes, ball.posX, ball.posY)) {
                 figures.splice(figures.indexOf(shape, 0), 1);
                 figures.splice(figures.indexOf(ball, 0), 1);
+                return true;
             }
         }
-
     }
+    return false;
 }
 
 function pointInPoly(figurePoints, pointX, pointY)
