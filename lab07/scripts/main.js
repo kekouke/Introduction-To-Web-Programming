@@ -7,25 +7,26 @@ class Gun {
 
     draw() {
         let [x, y] = [this.posX, this.posY];
-        ctx.fillStyle = "#CA3767";
-        ctx.beginPath();
-        ctx.arc(this.posX, this.posY, 30, 0, 2*Math.PI, false);
-        ctx.fill();
-        ctx.closePath();
 
         ctx.fillStyle = "#212121";
         ctx.beginPath();
         ctx.moveTo(x - 5, y);
-        ctx.lineTo(x - 5, y - 40);
-        ctx.lineTo(x + 10, y - 40);
+        ctx.lineTo(x - 5, y - 60);
+        ctx.lineTo(x + 10, y - 60);
         ctx.lineTo(x + 10, y);
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.fillStyle = "#CA3767";
+        ctx.beginPath();
+        ctx.arc(this.posX, this.posY, 30, 0, 2*Math.PI, false);
         ctx.fill();
         ctx.closePath();
     }
 
     rotate() {
         ctx.translate(this.posX, this.posY);
-        ctx.rotate(Math.PI / 2 - this.angle);
+        ctx.rotate(this.angle);
         ctx.translate(-this.posX, -this.posY);
     }
 }
@@ -44,10 +45,9 @@ class Bullet {
         ctx.fill();
         ctx.closePath();
 
-        this.posX += 5;
-        this.posY -= 5;
+        this.posX += 50;
+        this.posY -= 50;
     }
-
 }
 
 var backbround,
@@ -61,7 +61,10 @@ var backbround,
     health = 100,
     mouseX,
     mouseY,
-    bullet;
+    bullet,
+    targetAngle,
+    rightPressed = false,
+    leftPressed = false;
 
 function init() {
 
@@ -77,17 +80,24 @@ function init() {
             mouseX = e.clientX;
             mouseY = e.clientY;
 
-            dx = Math.abs(mouseX - player.posX);
-            dy = Math.abs(mouseY - player.posY);
-            player.angle = Math.atan(dy/ dx);
-        });
+            dx = mouseX - player.posX;
+            dy = mouseY - player.posY;
+            player.angle = Math.atan2(dy, dx) + Math.PI / 2;
+        }, false);
 
         document.addEventListener("keydown", function(e) {
             if (e.key == "ArrowRight") {
-                player.posX += 15;
+                rightPressed = true;
             } else if (e.key == "ArrowLeft") {
-                player.posX -= 15;
-                bullet = null;
+                leftPressed = true;
+            }
+        });
+
+        document.addEventListener("keyup", function(e) {
+            if (e.key == "ArrowRight") {
+                rightPressed = false;
+            } else if (e.key == "ArrowLeft") {
+                leftPressed = false;
             }
         });
 
@@ -95,18 +105,6 @@ function init() {
 
         player = new Gun();
         loadPicture();
-
-        //username = prompt("Print your name here:"); //TODO
-        //Draw(ctx, canvas.width, canvas.height);
-
-       /* document.getElementById('speedValue').addEventListener('change', function(e) {
-            speed = +document.getElementById('speedValue').value;
-        });
-
-        document.getElementById('sizeValue').addEventListener('change', function(e) {
-            maxFigureSize = document.getElementById('sizeValue').value;
-        });
-        */
     }
 }
 
@@ -123,8 +121,17 @@ function loadPicture() {
 
 function Draw(ctx, w, h) {
     ctx.save();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, 0, w, h);
     drawInterface(ctx);
+
+    if (rightPressed) {
+        player.posX += 10;
+    }
+    if (leftPressed) {
+        player.posX -= 10;
+    }
+
     player.rotate();
     player.draw(ctx);
     ctx.restore();
