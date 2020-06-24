@@ -1,16 +1,25 @@
 canvas { border: 1px solid blue; }
 
-.btn_play {
+.buttons {
     position: absolute;
     bottom: 50px;
-    left: 44%;
+    left: 34%;
     width: 200px;
     height: 100px;
+    display: flex;
 }
 
-#btn_play {
-    height: 100%;
-    width: 100%;
+.btn {
+    min-height: 40%;
+    min-width: 40%;
     font-weight: bold;
     font-size: large;
+    display: flex;
+    margin: 3px;
+}
+
+.liderboard {
+    width: 800px;
+    height: 600px;
+    display: none;
 }

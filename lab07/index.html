@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="tetx/javascript" src="./scripts/init.js"></script>
+    <script type="tetx/javascript" src="./scripts/gun.js"></script>
     <script type="text/javascript" src="./scripts/main.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>GunGame</title>
 </head>
-<body onload="init()">
-    <div class="btn_play">
-        <input type="button" value="Play" onclick="startGame()" id="btn_play">
+<body onload="new_game()">
+    <div id="table">
+    </div>
+    <div class="buttons">
+        <input type="button" class="btn" value="Play" onclick="startGame()"">
+        <input type="button" class="btn" value="Restart" onclick="init();">
+        <input type="button" class="btn" value="Pause" onclick="pause();">
+        <input type="button" class="btn" value="Change player" onclick="new_game();">
+        <input type="button" class="btn" value="Liderboard" onclick="changeDisplay();">
     </div>
 </body>
 </html>
