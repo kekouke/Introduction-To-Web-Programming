@@ -20,10 +20,10 @@ class Gun {
 
         ctx.fillStyle = "#212121";
         ctx.beginPath();
-        ctx.moveTo(x - 5, y);
-        ctx.lineTo(x - 5, y - 60);
-        ctx.lineTo(x + 10, y - 60);
-        ctx.lineTo(x + 10, y);
+        ctx.moveTo(x, y + 10);
+        ctx.lineTo(x + 60, y + 5);
+        ctx.lineTo(x + 60, y - 20);
+        ctx.lineTo(x, y - 10);
         ctx.fill();
         ctx.closePath();
 
@@ -55,18 +55,32 @@ class Bullet {
         this.posX = x;
         this.posY = y;
         this.angle = angle;
-        this.speed = 30;
+        this.speed = 40;
+
+        if (mouseX > this.posX) {
+            this.direction = 1;
+        }
+        else {
+            this.direction = -1;
+        }
+
     }
 
     move() {
-        this.posX += (Math.cos(this.angle  - Math.PI / 2)) * this.speed;
-        this.posY += (Math.sin(this.angle  - Math.PI / 2)) * this.speed;
+        this.posX += (Math.cos(this.angle)) * this.speed;
+        this.posY += (Math.sin(this.angle)) * this.speed;
+
+        if (this.direction == 1) {
+            this.angle += 2 * Math.PI / 180;
+        } else {
+            this.angle -= 2 * Math.PI / 180;
+        }
     }
 
     draw() {
         ctx.fillStyle = "red";
         ctx.beginPath();
-        ctx.arc(this.posX, this.posY, 7, 0, 2 * Math.PI, false);
+        ctx.arc(this.posX, this.posY, 15, 0, 2 * Math.PI, false);
         ctx.fill();
         ctx.closePath();
     }
@@ -150,7 +164,7 @@ enemy_data = [
     },
     {
         size: 70,
-        speed: 20 * level,
+        speed: 2 * level,
         points: 50,
         sprite: flying_ball
     }
@@ -176,7 +190,7 @@ function init() {
 
             dx = mouseX - player.posX;
             dy = mouseY - player.posY;
-            player.angle = Math.atan2(dy, dx) + Math.PI / 2;
+            player.angle = (Math.atan2(dy, dx));
 
         }, false);
 
@@ -289,7 +303,7 @@ function main() {
     
         detectCollision(); //TODO: Rename
     
-        level = Math.round(score / 500) + 1;
+        level = Math.floor(score / 500) + 1;
         enemiesOnLvl = 5 * level;
     } else {
         health = 0;
