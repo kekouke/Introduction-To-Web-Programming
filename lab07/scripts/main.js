@@ -5,6 +5,8 @@ var jelly_monster = new Image(100, 100);
 jelly_monster.src = './jelly_monster.png';
 var flying_ball = new Image(100, 100);
 flying_ball.src = './flying_ball.png';
+var reload_indicator = new Image(70, 50);
+reload_indicator.src = './bulletreload.png';
 
 class Gun {
     constructor() {
@@ -112,10 +114,12 @@ var backbround,
 
 //systemVariables
 var idTimer,
+    rTimer,
     mouseX,
     mouseY,
     rightPressed = false,
     leftPressed = false,
+    reload = 9,
     enemiesOnLvl = 5,
     isRunGame;
 
@@ -194,7 +198,10 @@ function init() {
 
         canvas.addEventListener("click", function(e) {
             if (isRunGame) {
-                bullets.push(new Bullet(player.posX, player.posY, player.angle));
+                if (reload >= 10) {
+                    reload = 0;
+                    bullets.push(new Bullet(player.posX, player.posY, player.angle));
+                } 
             }
         }, false);
 
@@ -232,6 +239,10 @@ function Draw(ctx, w, h) {
     player.draw(ctx);
     ctx.restore();
 
+    if (reload >= 9) {
+        ctx.drawImage(reload_indicator, 0, 540, 70, 50);
+    }
+
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw();
         bullets[i].move();
@@ -267,9 +278,10 @@ function startGame() {
 }
 
 function main() {
+    if (health != 110) {
 
-    if (health > 0) {
         Draw(ctx, canvas.width, canvas.height);
+        reload++;
 
         while (enemies.length < enemiesOnLvl) {
             getRandomEnemy();
@@ -279,7 +291,6 @@ function main() {
     
         level = Math.round(score / 500) + 1;
         enemiesOnLvl = 5 * level;
-
     } else {
         health = 0;
         Draw(ctx, canvas.width, canvas.height);
@@ -377,7 +388,7 @@ function gameOver() {
 }
 
 function new_game() {
-    setName();
+    //setName();
     init();
 }
 
