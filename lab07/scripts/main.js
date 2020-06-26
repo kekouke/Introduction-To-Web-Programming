@@ -135,7 +135,8 @@ var idTimer,
     leftPressed = false,
     reload = 9,
     enemiesOnLvl = 5,
-    isRunGame;
+    isGameDisplay,
+    pauseFlag;
 
 //gameParam
 var username = '',
@@ -145,7 +146,8 @@ var username = '',
 
 //gameObject
 var bullets,
-    enemies;
+    enemies,
+    liderboard;
 
 
 
@@ -173,7 +175,7 @@ enemy_data = [
 function init() {
 
     if (canvas != undefined) {
-        canvas.remove();
+        //canvas.remove();
     }
 
     canvas = document.createElement("canvas");
@@ -211,7 +213,7 @@ function init() {
         });
 
         canvas.addEventListener("click", function(e) {
-            if (isRunGame) {
+            if (!pauseFlag) {
                 if (reload >= 10) {
                     reload = 0;
                     bullets.push(new Bullet(player.posX, player.posY, player.angle));
@@ -226,6 +228,8 @@ function init() {
         health = 100;
         bullets = [];
         enemies = [];
+        liderboard = [];
+        isGameDisplay = true;
 
         loadPicture();
     }
@@ -254,7 +258,7 @@ function Draw(ctx, w, h) {
     ctx.restore();
 
     if (reload >= 9) {
-        ctx.drawImage(reload_indicator, 0, 540, 70, 50);
+        ctx.drawImage(reload_indicator, 0, 500, 70, 50);
     }
 
     for (let i = 0; i < bullets.length; i++) {
@@ -268,7 +272,7 @@ function Draw(ctx, w, h) {
         enemies[i].move();
         if (killEnemy(i)) {
             i--;
-            health -= 25;
+            health -= 80;
         }
     }
     drawInterface(ctx);
@@ -284,15 +288,15 @@ function drawInterface(ctx) {
 }
 
 function startGame() {
-    //inputName();
-    isRunGame = true;
-    clearInterval(idTimer);
-    idTimer = setInterval(main, 50);
-    getRandomEnemy();
+    if (isGameDisplay) {
+        clearInterval(idTimer);
+        idTimer = setInterval(main, 50);
+    }
+    pauseFlag = false;
 }
 
 function main() {
-    if (health != 110) {
+    if (health > 0) {
 
         Draw(ctx, canvas.width, canvas.height);
         reload++;
@@ -304,7 +308,7 @@ function main() {
         detectCollision(); //TODO: Rename
     
         level = Math.floor(score / 500) + 1;
-        enemiesOnLvl = 5 * level;
+        enemiesOnLvl = 7 * level;
     } else {
         health = 0;
         Draw(ctx, canvas.width, canvas.height);
@@ -361,7 +365,7 @@ function getRandomEnemy() {
     let enemy = enemy_data[Math.floor(Math.random() * 3)];
 
     let x = canvas.width + randomInteger(200, 1000);
-    let y = randomInteger(0, 500);
+    let y = randomInteger(100, 450);
 
     enemies.push(new Enemy(x, y, enemy.size, enemy.speed, enemy.points, enemy.sprite));
 }
@@ -390,46 +394,78 @@ function pointInPoly(object, pointX, pointY)
 }
 
 function pause() {
-    isRunGame = false;
     clearInterval(idTimer);
+    pauseFlag = true;
 }
 
 function gameOver() {
     localStorage.setItem(username, score);
     canvas.style.display = "none";
     changeDisplay();
-    //displayLiderboard();
 }
 
 function new_game() {
-    //setName();
+    setName();
     init();
+    pause();
 }
 
 function changeDisplay() {
-    if (isRunGame) {
+    if (isGameDisplay) {
         pause();
         canvas.style.display = "none";
-        displayLiderboard();
+        showLiderboard();
+        isGameDisplay = false;
     } else {
-        let table = document.getElementById("table");
-        table.firstChild.remove();
+        deleteLiderboard();
         canvas.style.display = "block";
+        isGameDisplay = true;
     }
 }
 
-function displayLiderboard() {
-    let html = "<table><th>ИМЯ</th><th>ОЧКИ</th>";
-    for (let i = 0; i < localStorage.length && i < 15; i++) {
+function showLiderboard() {
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let obj = {};
+        let name = localStorage.key(i);
+        obj["name"] = name;
+        obj["score"] = localStorage.getItem(localStorage.key(i));
+        liderboard.push(obj);
+    }
+
+    let sortedPlayer = liderboard.sort(function(a, b) {
+        return b.score - a.score;
+    });
+
+    let html = "<table cellpadding='3' align='center' border='3'><th>ИМЯ</th><th>ОЧКИ</th>";
+    for (let i = 0; i < sortedPlayer.length && i < 15; i++) {
         html += "<tr aling=\"center\">";
         for (let j = 0; j < 1; j++) {
-            let key = localStorage.key(i);
-            html += "<td>" + localStorage.key(i) + "</td>";
-            html += "<td>" + localStorage.getItem(key) + "</td>";
+            html += "<td>" + sortedPlayer[i].name + "</td>";
+            html += "<td>" + sortedPlayer[i].score + "</td>";
         }
         html += "</tr>";
     }
     html += "</table>";
 
     document.getElementById("table").innerHTML = html;
+}
+
+function restartGame() {
+    deleteLiderboard();
+    canvas.remove();
+    init();
+    pause();
+}
+
+function deleteLiderboard() {
+    if (!isGameDisplay) {
+        document.getElementById('table').firstChild.remove();
+    }
+}
+
+function changePlayer() {
+    canvas.remove();
+    deleteLiderboard();
+    new_game();
 }
