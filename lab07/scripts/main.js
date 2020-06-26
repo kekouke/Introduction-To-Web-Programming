@@ -7,11 +7,14 @@ var flying_ball = new Image(100, 100);
 flying_ball.src = './flying_ball.png';
 var reload_indicator = new Image(70, 50);
 reload_indicator.src = './bulletreload.png';
+var reaperSprite = new Image();
+reaperSprite.src = './reaper5.png';
 
 var background = new Image();
 background.src = "./img/background.jpg";
 
-var player; 
+var player;
+var reaper;
 
 //canvas
 var canvas,
@@ -25,6 +28,7 @@ var idTimer,
     rightPressed = false,
     leftPressed = false,
     reloadTimer = 9,
+    reaperTimer = 0,
     enemiesOnLvl = 5,
     isGameDisplay,
     pauseFlag;
@@ -48,21 +52,22 @@ enemy_data = [
         speed: 7 * level,
         points: 30,
         sprite: blue_bird,
-        damage: 25
+        damage: 25,
     },
     {
         size: 100,
         speed: 5 * level,
         points: 20,
         sprite: jelly_monster,
-        damage: 10
+        damage: 10,
+        posY: 430
     },
     {
         size: 70,
         speed: 8 * level,
         points: 100,
         sprite: flying_ball,
-        damage: 1
+        damage: 1,
     }
 ];
 
@@ -152,7 +157,8 @@ class Enemy {
 
     move() {
         this.posX -= this.speed;
-        this.posY += Math.floor(Math.random() * 5) - 2;
+        //this.posY += Math.floor(Math.random() * 5) - 2;
+        this.posY += Math.sin(this.posX) * 10;
 
     }
 
@@ -170,6 +176,19 @@ class Enemy {
             [x, y + size]
         ];
 
+    }
+}
+
+class Reaper extends Enemy {
+    move() {
+        this.posY += 20;
+    }
+
+    makeHit() {
+        if (pointInPoly(reaper, player.posX, player.posY)) {
+            health -= reaper.damage;
+            reaper = undefined;
+        }
     }
 }
 
@@ -266,6 +285,14 @@ function Draw(ctx, w, h) {
         }
         
     }
+
+    if (reaper != null) {
+        reaper.draw();
+        reaper.move();
+        reaper.makeHit();
+        deleteReaper();
+    }
+
     drawInterface(ctx);
 }
 
@@ -301,6 +328,16 @@ function main() {
     
         level = Math.floor(score / 500) + 1;
         enemiesOnLvl = 7 + level;
+
+        if (level >= 10) {
+            reaperTimer++;
+        }
+        if (reaperTimer > Math.abs(150 - level) && reaper === undefined) {
+            reaper = new Reaper(player.posX, -100, 150, 20, 0, reaperSprite, 30);
+            reaperTimer = 0;
+        }
+        
+
 
     } else {
         health = 0;
@@ -366,7 +403,7 @@ function getRandomEnemy() {
     }
 
     let x = canvas.width + randomInteger(200, 1000);
-    let y = randomInteger(100, 450);
+    let y = enemy.posY === undefined ? randomInteger(100, 450) : enemy.posY;
     enemies.push(new Enemy(x, y, enemy.size, enemy.speed, enemy.points, enemy.sprite, enemy.damage));
 }
 
@@ -470,4 +507,8 @@ function changePlayer() {
     canvas.remove();
     deleteLiderboard();
     new_game();
+}
+
+function deleteReaper() {
+    if (reaper != undefined && reaper.posY > canvas.height) reaper = undefined;
 }
