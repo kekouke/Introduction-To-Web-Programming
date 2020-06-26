@@ -8,6 +8,61 @@ flying_ball.src = './flying_ball.png';
 var reload_indicator = new Image(70, 50);
 reload_indicator.src = './bulletreload.png';
 
+var background = new Image();
+background.src = "./img/background.jpg";
+
+var player; 
+
+//canvas
+var canvas,
+    ctx; 
+
+//systemVariables
+var idTimer,
+    rTimer,
+    mouseX,
+    mouseY,
+    rightPressed = false,
+    leftPressed = false,
+    reloadTimer = 9,
+    enemiesOnLvl = 5,
+    isGameDisplay,
+    pauseFlag;
+
+//gameParam
+var username = '',
+    score = 0;
+    level = 1;
+    health = 100;
+
+//gameObject
+var bullets,
+    enemies,
+    liderboard;
+
+
+
+enemy_data = [
+    {
+        size: 100,
+        speed: 10 * level,
+        points: 5,
+        sprite: blue_bird
+    },
+    {
+        size: 100,
+        speed: 5 * level,
+        points: 10,
+        sprite: jelly_monster
+    },
+    {
+        size: 70,
+        speed: 2 * level,
+        points: 50,
+        sprite: flying_ball
+    }
+];
+
 class Gun {
     constructor() {
         this.posX = 40;
@@ -69,12 +124,7 @@ class Bullet {
     move() {
         this.posX += (Math.cos(this.angle)) * this.speed;
         this.posY += (Math.sin(this.angle)) * this.speed;
-
-        if (this.direction == 1) {
-            this.angle += 2 * Math.PI / 180;
-        } else {
-            this.angle -= 2 * Math.PI / 180;
-        }
+        this.angle += 2 * Math.PI / 180 * this.direction;
     }
 
     draw() {
@@ -119,66 +169,19 @@ class Enemy {
     }
 }
 
-var player; 
+function init() {
 
-//canvas
-var backbround,
-    canvas,
-    ctx; 
+    canvas = document.createElement("canvas");
 
-//systemVariables
-var idTimer,
-    rTimer,
-    mouseX,
-    mouseY,
-    rightPressed = false,
-    leftPressed = false,
-    reload = 9,
-    enemiesOnLvl = 5,
-    isGameDisplay,
-    pauseFlag;
+    player = new Gun();
 
-//gameParam
-var username = '',
     score = 0;
     level = 1;
     health = 100;
-
-//gameObject
-var bullets,
-    enemies,
-    liderboard;
-
-
-
-enemy_data = [
-    {
-        size: 100,
-        speed: 10 * level,
-        points: 5,
-        sprite: blue_bird
-    },
-    {
-        size: 100,
-        speed: 5 * level,
-        points: 10,
-        sprite: jelly_monster
-    },
-    {
-        size: 70,
-        speed: 2 * level,
-        points: 50,
-        sprite: flying_ball
-    }
-];
-
-function init() {
-
-    if (canvas != undefined) {
-        //canvas.remove();
-    }
-
-    canvas = document.createElement("canvas");
+    bullets = [];
+    enemies = [];
+    liderboard = [];
+    isGameDisplay = true;
 
     if (canvas.getContext){
         ctx = canvas.getContext('2d');
@@ -214,36 +217,15 @@ function init() {
 
         canvas.addEventListener("click", function(e) {
             if (!pauseFlag) {
-                if (reload >= 10) {
-                    reload = 0;
+                if (reloadTimer >= 10) {
+                    reloadTimer = 0;
                     bullets.push(new Bullet(player.posX, player.posY, player.angle));
                 } 
             }
         }, false);
 
-        player = new Gun();
-
-        score = 0;
-        level = 1;
-        health = 100;
-        bullets = [];
-        enemies = [];
-        liderboard = [];
-        isGameDisplay = true;
-
-        loadPicture();
+        Draw(ctx, canvas.width, canvas.height);
     }
-}
-
-function loadPicture() {
-
-    background = new Image();
-
-    background.onload = function() {
-        Draw(ctx, canvas.width, canvas.height);        
-    };
-
-    background.src = "./img/background.jpg";
 }
 
 function Draw(ctx, w, h) {
@@ -257,25 +239,31 @@ function Draw(ctx, w, h) {
     player.draw(ctx);
     ctx.restore();
 
-    if (reload >= 9) {
+    if (reloadTimer >= 9) {
         ctx.drawImage(reload_indicator, 0, 500, 70, 50);
     }
 
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw();
         bullets[i].move();
-        destroyBullet(i); // TODO: Сделать проверку на уничтожение пульки и не увеличивать i, если пуля взорвалась
+        //destroyBullet(i); // TODO: Сделать проверку на уничтожение пульки и не увеличивать i, если пуля взорвалась
+        if (checkOutside(bullets[i], i)) {
+            i--;
+        }
+        
     }
 
     for (let i = 0; i < enemies.length; i++) {
         enemies[i].draw();
         enemies[i].move();
-        if (killEnemy(i)) {
+        if (checkOutside(enemies[i], i)) {
             i--;
-            health -= 80;
+            health -= 25;
         }
+        
     }
     drawInterface(ctx);
+    console.log(bullets.length);
 }
 
 function drawInterface(ctx) {
@@ -298,17 +286,19 @@ function startGame() {
 function main() {
     if (health > 0) {
 
+        reloadTimer++;
+
         Draw(ctx, canvas.width, canvas.height);
-        reload++;
 
         while (enemies.length < enemiesOnLvl) {
             getRandomEnemy();
         }
     
-        detectCollision(); //TODO: Rename
+        detectHit();
     
         level = Math.floor(score / 500) + 1;
         enemiesOnLvl = 7 * level;
+
     } else {
         health = 0;
         Draw(ctx, canvas.width, canvas.height);
@@ -318,7 +308,7 @@ function main() {
     }
 }
 
-function detectCollision() {
+function detectHit() {
     for (let i = 0; i < bullets.length; i++) {
 
         let bullet = bullets[i];
@@ -330,22 +320,23 @@ function detectCollision() {
             if (pointInPoly(enemy, bullet.posX, bullet.posY)) {
                 score += enemy.points;
                 enemies.splice(j, 1);
+                j--;
             }
         }
     }
 }
 
-function destroyBullet(index) {
-    if (bullets[index].posX > canvas.width || bullets[index].posY > canvas.height ||
-        bullets[index].posX < 0 || bullets[index].posY < 0) {
-            bullets.splice(index, 1);
+function checkOutside(gameObject, position) {
+    if (gameObject.posX < 0 || gameObject.posY > canvas.height) {
+        if (gameObject instanceof Enemy) 
+        {
+            enemies.splice(position, 1);
+        } 
+        else 
+        {
+            bullets.splice(position, 1);
         }
-}
-
-function killEnemy(index) {
-    if (enemies[index].posY > canvas.height || enemies[index].posX < 0 || enemies[index].posY < 0) {
-            enemies.splice(index, 1);
-            return true;
+        return true;
     }
     return false;
 }
@@ -357,7 +348,7 @@ function setName() {
         username = name;
     }
     else {
-        inputName();
+        setName();
     }
 }
 
@@ -411,13 +402,14 @@ function new_game() {
 }
 
 function changeDisplay() {
+    deleteLiderboard();
+
     if (isGameDisplay) {
         pause();
         canvas.style.display = "none";
         showLiderboard();
         isGameDisplay = false;
     } else {
-        deleteLiderboard();
         canvas.style.display = "block";
         isGameDisplay = true;
     }
@@ -433,22 +425,23 @@ function showLiderboard() {
         liderboard.push(obj);
     }
 
-    let sortedPlayer = liderboard.sort(function(a, b) {
+    liderboard.sort(function(a, b) {
         return b.score - a.score;
     });
 
     let html = "<table cellpadding='3' align='center' border='3'><th>ИМЯ</th><th>ОЧКИ</th>";
-    for (let i = 0; i < sortedPlayer.length && i < 15; i++) {
+    for (let i = 0; i < liderboard.length && i < 15; i++) {
         html += "<tr aling=\"center\">";
         for (let j = 0; j < 1; j++) {
-            html += "<td>" + sortedPlayer[i].name + "</td>";
-            html += "<td>" + sortedPlayer[i].score + "</td>";
+            html += "<td>" + liderboard[i].name + "</td>";
+            html += "<td>" + liderboard[i].score + "</td>";
         }
         html += "</tr>";
     }
     html += "</table>";
 
     document.getElementById("table").innerHTML = html;
+    liderboard.splice(0, liderboard.length);
 }
 
 function restartGame() {
