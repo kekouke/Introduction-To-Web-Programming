@@ -45,21 +45,24 @@ var bullets,
 enemy_data = [
     {
         size: 100,
-        speed: 10 * level,
-        points: 5,
-        sprite: blue_bird
+        speed: 7 * level,
+        points: 30,
+        sprite: blue_bird,
+        damage: 25
     },
     {
         size: 100,
         speed: 5 * level,
-        points: 10,
-        sprite: jelly_monster
+        points: 20,
+        sprite: jelly_monster,
+        damage: 10
     },
     {
         size: 70,
-        speed: 2 * level,
-        points: 50,
-        sprite: flying_ball
+        speed: 8 * level,
+        points: 100,
+        sprite: flying_ball,
+        damage: 1
     }
 ];
 
@@ -137,13 +140,14 @@ class Bullet {
 }
 
 class Enemy {
-    constructor(x, y, size, speed, pts, sprite) {
+    constructor(x, y, size, speed, pts, sprite, damage) {
         this.posX = x;
         this.posY = y;
         this.size = size;
         this.speed = speed;
         this.points = pts;
         this.sprite = sprite;
+        this.damage = damage;
     }
 
     move() {
@@ -246,7 +250,6 @@ function Draw(ctx, w, h) {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw();
         bullets[i].move();
-        //destroyBullet(i); // TODO: Сделать проверку на уничтожение пульки и не увеличивать i, если пуля взорвалась
         if (checkOutside(bullets[i], i)) {
             i--;
         }
@@ -254,16 +257,16 @@ function Draw(ctx, w, h) {
     }
 
     for (let i = 0; i < enemies.length; i++) {
+        let damage = enemies[i].damage;
         enemies[i].draw();
         enemies[i].move();
         if (checkOutside(enemies[i], i)) {
             i--;
-            health -= 25;
+            health -= damage;
         }
         
     }
     drawInterface(ctx);
-    console.log(bullets.length);
 }
 
 function drawInterface(ctx) {
@@ -297,7 +300,7 @@ function main() {
         detectHit();
     
         level = Math.floor(score / 500) + 1;
-        enemiesOnLvl = 7 * level;
+        enemiesOnLvl = 7 + level;
 
     } else {
         health = 0;
@@ -353,12 +356,18 @@ function setName() {
 }
 
 function getRandomEnemy() {
-    let enemy = enemy_data[Math.floor(Math.random() * 3)];
+
+    let enemy;
+
+    if (level > 5) {
+        enemy = enemy_data[Math.floor(Math.random() * 3)];
+    } else {
+        enemy = enemy_data[Math.floor(Math.random() * 2)];
+    }
 
     let x = canvas.width + randomInteger(200, 1000);
     let y = randomInteger(100, 450);
-
-    enemies.push(new Enemy(x, y, enemy.size, enemy.speed, enemy.points, enemy.sprite));
+    enemies.push(new Enemy(x, y, enemy.size, enemy.speed, enemy.points, enemy.sprite, enemy.damage));
 }
 
 function randomInteger(min, max) {
